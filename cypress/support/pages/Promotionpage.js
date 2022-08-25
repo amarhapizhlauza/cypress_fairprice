@@ -23,16 +23,23 @@ class Promotionpage {
     }
 
     async tab_promotion(){
+        cy.get(locator.selector.btn_all).click();
+        cy.wait(2000)
         cy.get(locator.selector.btn_pwp).click();
-        return cy.get(locator.selector.btn_pwp).click();
+        return cy.wait(5000)
     }
 
-    async verify_product(label){
-        cy.wait(3000)
-        
+    async verify_product(label){      
+        cy.log("Label : " + label)
         return cy.get(locator.selector.label_product).then($ListProduct => {
-            for (let j = 0; j < $ListProduct.lenght; j++) {
-                expect($ListProduct.eq(j)).to.contain(label)
+            for (let j = 0; j < $ListProduct.length; j++) {
+                // cy.log("Object : " + $ListProduct.eq(j).text())
+                if($ListProduct.eq(j).text() == label){                 
+                    expect($ListProduct.eq(j)).to.contain(label)
+                } else {
+                    expect($ListProduct.eq(j)).to.contain("Offer")
+                }
+                
             }
         })
 
