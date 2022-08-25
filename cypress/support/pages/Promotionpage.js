@@ -23,17 +23,20 @@ class Promotionpage {
     }
 
     async tab_promotion(){
+        cy.get(locator.selector.btn_pwp).click();
         return cy.get(locator.selector.btn_pwp).click();
     }
 
     async verify_product(label){
-        cy.get(locator.selector.label_product).then($ListProduct => {
-            for (let j = 0; j < ListProduct.lenght; j++) {
+        cy.wait(3000)
+        
+        return cy.get(locator.selector.label_product).then($ListProduct => {
+            for (let j = 0; j < $ListProduct.lenght; j++) {
                 expect($ListProduct.eq(j)).to.contain(label)
             }
         })
 
-        return
+        
     }
 }
 
